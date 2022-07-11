@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// トップ
+Route::get('/', [HomeController::class, 'init'])->name('home');
+
+// レシピ一覧
+Route::get('/recipe',)->name('recipe');
+
+// レシピ登録
+Route::get('/recipe/add',)->name('recipe.add');
+Route::post('/recipe/add',);
+
+// レシピ編集
+Route::get('/recipe/edit/{recipe}',)->name('recipe.edit');
+Route::post('/recipe/edit/{recipe}',);
