@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller as BaseController;
 class HomeController extends BaseController
 {
     /**
+     * トップページ表示
      *
      * @return View
      */
