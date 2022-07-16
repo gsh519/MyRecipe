@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RecipeAddController;
 use App\Http\Controllers\RecipeIndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,8 +23,8 @@ Route::get('/', [HomeController::class, 'init'])->name('home');
 Route::get('/recipe', [RecipeIndexController::class, 'init'])->name('recipe');
 
 // レシピ登録
-Route::get('/recipe/add',)->name('recipe.add');
-Route::post('/recipe/add',);
+Route::get('/recipe/add', [RecipeAddController::class, 'init'])->name('recipe.add');
+Route::post('/recipe/add', [RecipeAddController::class, 'add']);
 
 // レシピ編集
 Route::get('/recipe/edit/{recipe}',)->name('recipe.edit');
