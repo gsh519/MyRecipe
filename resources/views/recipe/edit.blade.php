@@ -35,10 +35,10 @@
                 <label>材料</label>
                 @if ($recipe->ingredients)
                 @foreach ($recipe->ingredients as $ingredient)
-                <input type="text" name="ingredient_name" value="{{ $ingredient->ingredient_name }}">
+                <input type="text" name="ingredients[]" value="{{ $ingredient->ingredient_name }}">
                 @endforeach
                 @else
-                <input type="text" name="ingredient_name" value="">
+                <input type="text" name="ingredients[]" value="">
                 @endif
             </div>
         </div>
@@ -49,10 +49,10 @@
                 <label>作り方</label>
                 @if ($recipe->how_to_makes)
                 @foreach ($recipe->how_to_makes as $how_to_make)
-                <input type="text" name="make" value="{{ $how_to_make->make }}">
+                <input type="text" name="how_to_makes[]" value="{{ $how_to_make->make }}">
                 @endforeach
                 @else
-                <input type="text" name="make" value="">
+                <input type="text" name="how_to_makes[]" value="">
                 @endif
             </div>
         </div>

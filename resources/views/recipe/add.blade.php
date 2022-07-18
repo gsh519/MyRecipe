@@ -33,7 +33,7 @@
         <div>
             <div>
                 <label>材料</label>
-                <input type="text" name="ingredient_name[]">
+                <input type="text" name="ingredients[]">
             </div>
         </div>
 
@@ -41,7 +41,7 @@
         <div>
             <div>
                 <label>作り方</label>
-                <input type="text" name="make">
+                <input type="text" name="how_to_makes[]">
             </div>
         </div>
 

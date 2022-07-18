@@ -31,24 +31,28 @@ class CreateRecipe
         } else {
             $recipe->is_favorite = IsFavorite::YES;
         }
-        $recipe->is_favorite = $request->input('is_favorite');
         $recipe->dish_type = $request->input('dish_type');
         $recipe->memo = $request->input('memo');
         $recipe->save();
 
         // 材料トランに登録
-        dd($request->input('ingredient_name[]'));
-        $ingredient = new Ingredient();
-        $ingredient->recipe_id = $recipe->recipe_id;
-        $ingredient->ingredient_name = $request->input('ingredient_name');
-        $ingredient->save();
+        $request_ingredients = $request->input('ingredients');
+        foreach ($request_ingredients as $request_ingredient) {
+            $ingredient = new Ingredient();
+            $ingredient->recipe_id = $recipe->recipe_id;
+            $ingredient->ingredient_name = $request_ingredient;
+            $ingredient->save();
+        }
 
         // 作り方トランに登録
-        $how_to_make = new HowToMake();
-        $how_to_make->recipe_id = $recipe->recipe_id;
-        $how_to_make->make = $request->input('make');
-        $how_to_make->order = 1;
-        $how_to_make->save();
+        $request_how_to_makes = $request->input('how_to_makes');
+        foreach ($request_how_to_makes as $request_how_to_make) {
+            $how_to_make = new HowToMake();
+            $how_to_make->recipe_id = $recipe->recipe_id;
+            $how_to_make->make = $request_how_to_make;
+            $how_to_make->order = 1;
+            $how_to_make->save();
+        }
 
         DB::commit();
 

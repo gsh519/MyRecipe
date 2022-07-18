@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\UseCases\EditRecipe;
 use App\Models\Recipe;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -27,11 +28,11 @@ class RecipeEditController extends BaseController
 
         if ($result->success) {
             return redirect()
-                ->route('recipe', $result->recipe)
+                ->route('recipe.edit', $result->recipe)
                 ->with('message', 'レシピを更新しました');
         } else {
             return back()
-                ->route('recipe', $result->recipe)
+                ->route('recipe.edit', $result->recipe)
                 ->with('message', $result->error);
         }
     }
