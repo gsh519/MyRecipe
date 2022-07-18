@@ -14,6 +14,13 @@
 
 <body>
     <h1>Recipe一覧画面表示</h1>
+    @if (session('message'))
+    <div>
+        <p>
+            {{ session('message') }}
+        </p>
+    </div>
+    @endif
     <div>
         @foreach ($recipes as $recipe)
         <h2>

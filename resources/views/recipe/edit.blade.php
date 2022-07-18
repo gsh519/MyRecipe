@@ -95,7 +95,13 @@
                 更新
             </button>
         </div>
+        <div>
+            <button form="delete" type="submit">
+                削除
+            </button>
+        </div>
     </form>
+    <form action="{{ route('recipe.delete', $recipe) }}" method="post" id="delete">@csrf</form>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
