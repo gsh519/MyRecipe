@@ -22,6 +22,9 @@
     </div>
     @endif
     <div>
+        <a href="{{ route('recipe.add') }}">追加</a>
+    </div>
+    <div>
         @foreach ($recipes as $recipe)
         <h2>
             ・{{ $recipe->title }}

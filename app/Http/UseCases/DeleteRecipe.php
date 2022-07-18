@@ -2,16 +2,15 @@
 
 namespace App\Http\UseCases;
 
-use App\Enums\IsFavorite;
 use App\Http\UseCases\Results\DeleteRecipeResult;
-use App\Http\UseCases\Results\EditRecipeResult;
-use App\Models\HowToMake;
-use App\Models\Ingredient;
 use App\Models\Recipe;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-// コメント書く
+/**
+ * レシピ削除処理
+ *
+ * @param Recipe $recipe
+ * @return DeleteRecipeResult
+ */
 class DeleteRecipe
 {
     public function __invoke(Recipe $recipe): DeleteRecipeResult
