@@ -22,6 +22,7 @@
         <p>
             {{ $recipe->memo }}
         </p>
+        <a href="{{ route('recipe.edit', $recipe) }}">編集</a>
         @endforeach
     </div>
 </body>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RecipeAddController;
+use App\Http\Controllers\RecipeEditController;
 use App\Http\Controllers\RecipeIndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +28,5 @@ Route::get('/recipe/add', [RecipeAddController::class, 'init'])->name('recipe.ad
 Route::post('/recipe/add', [RecipeAddController::class, 'add']);
 
 // レシピ編集
-Route::get('/recipe/edit/{recipe}',)->name('recipe.edit');
-Route::post('/recipe/edit/{recipe}',);
+Route::get('/recipe/edit/{recipe}', [RecipeEditController::class, 'init'])->name('recipe.edit');
+Route::post('/recipe/edit/{recipe}', [RecipeEditController::class, 'edit']);

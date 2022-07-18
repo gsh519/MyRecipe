@@ -4,27 +4,22 @@ namespace App\Http\UseCases;
 
 use App\Enums\IsFavorite;
 use App\Http\UseCases\Results\CreateRecipeResult;
+use App\Http\UseCases\Results\EditRecipeResult;
 use App\Models\HowToMake;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-/**
- * レシピ登録
- *
- * @param Request $request
- * @return CreateRecipeResult
- */
-class CreateRecipe
+// コメント書く
+class EditRecipe
 {
-    public function __invoke(Request $request): CreateRecipeResult
+    public function __invoke(Request $request, Recipe $recipe): EditRecipeResult
     {
-        $result = new CreateRecipeResult();
+        $result = new EditRecipeResult();
 
         DB::beginTransaction();
-        // レシピマスタに登録
-        $recipe = new Recipe();
+        // レシピマスタ更新
         $recipe->title = $request->input('title');
         if (is_null($request->input('is_favorite'))) {
             $recipe->is_favorite = IsFavorite::NO;
@@ -36,12 +31,16 @@ class CreateRecipe
         $recipe->memo = $request->input('memo');
         $recipe->save();
 
-        // 材料トランに登録
-        dd($request->input('ingredient_name[]'));
-        $ingredient = new Ingredient();
-        $ingredient->recipe_id = $recipe->recipe_id;
-        $ingredient->ingredient_name = $request->input('ingredient_name');
-        $ingredient->save();
+        // 材料トラン削除
+        /** @var Ingredient $ingredient */
+        foreach ($recipe->ingredients as $ingredient) {
+            $ingredient->delete();
+        }
+
+        // 材料トラン作成
+
+
+
 
         // 作り方トランに登録
         $how_to_make = new HowToMake();

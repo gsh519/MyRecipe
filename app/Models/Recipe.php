@@ -16,6 +16,26 @@ class Recipe extends Model
     |
     */
 
+    /**
+     * 材料
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ingredients()
+    {
+        return $this->hasMany(Ingredient::class, 'recipe_id', 'recipe_id');
+    }
+
+    /**
+     * 作り方
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function how_to_makes()
+    {
+        return $this->hasMany(HowToMake::class, 'recipe_id', 'recipe_id');
+    }
+
     /*
     |-------------------
     | ACCESSOR

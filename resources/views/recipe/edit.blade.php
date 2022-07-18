@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <h1>MyRecipe新規登録</h1>
+    <h1>MyRecipe編集</h1>
     @if (session('message'))
     <div>
         <p>
@@ -21,19 +21,25 @@
         </p>
     </div>
     @endif
-    <form action="{{ route('recipe.add') }}" method="post">
+    <form action="{{ route('recipe.edit', $recipe) }}" method="post">
         @csrf
         <!-- 料理名 -->
         <div>
             <label>料理名</label>
-            <input type="text" name="title">
+            <input type="text" name="title" value="{{ $recipe->title }}">
         </div>
 
         <!-- 材料 -->
         <div>
             <div>
                 <label>材料</label>
-                <input type="text" name="ingredient_name[]">
+                @if ($recipe->ingredients)
+                @foreach ($recipe->ingredients as $ingredient)
+                <input type="text" name="ingredient_name" value="{{ $ingredient->ingredient_name }}">
+                @endforeach
+                @else
+                <input type="text" name="ingredient_name" value="">
+                @endif
             </div>
         </div>
 
@@ -41,7 +47,13 @@
         <div>
             <div>
                 <label>作り方</label>
-                <input type="text" name="make">
+                @if ($recipe->how_to_makes)
+                @foreach ($recipe->how_to_makes as $how_to_make)
+                <input type="text" name="make" value="{{ $how_to_make->make }}">
+                @endforeach
+                @else
+                <input type="text" name="make" value="">
+                @endif
             </div>
         </div>
 
@@ -68,19 +80,19 @@
         <div>
             <label>
                 お気に入り
-                <input type="checkbox" class="__is_favorite" name="is_favorite" value="0">
+                <input type="checkbox" class="__is_favorite" name="is_favorite" value="{{ $recipe->is_favorite }}">
             </label>
         </div>
 
         <!-- 料理メモ -->
         <div>
             <label>料理メモ</label>
-            <input type="textarea" name="memo">
+            <input type="textarea" name="memo" value="{{ $recipe->memo }}">
         </div>
 
         <div>
             <button type="submit">
-                登録
+                更新
             </button>
         </div>
     </form>
@@ -88,7 +100,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script>
         $(function() {
-            $('.__is_favorite').on('click', function() {
+            // 主菜・ 副菜・ スープ選択
+            if ("{!! $recipe->dish_type !!}") {
+                let dish_type = $('input[value = "{!! $recipe->dish_type !!}"]');
+                dish_type.prop('checked', true);
+            }
+
+            // お気に入りフラグ
+            let is_favorite = $('.__is_favorite');
+
+            if (is_favorite.attr('value') === '1') {
+                is_favorite.prop('checked', true);
+            }
+
+            is_favorite.on('click', function() {
                 if ($(this).attr('value') === '1') {
                     $(this).prop('value', 0);
                 } else {

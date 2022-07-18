@@ -16,6 +16,15 @@ class Ingredient extends Model
     |
     */
 
+    /**
+     * レシピ
+     *
+     */
+    public function recipe()
+    {
+        return $this->belongsTo(Recipe::class, 'recipe_id', 'recipe_id');
+    }
+
     /*
     |-------------------
     | ACCESSOR
